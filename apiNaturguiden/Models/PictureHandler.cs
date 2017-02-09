@@ -8,29 +8,30 @@ namespace apiNaturguiden.Models
 {
     public class PictureHandler
     {
-        PictureEntities _db;
+        PictureEntities db;
         public PictureHandler()
         {
-            _db = new PictureEntities();
+            db = new PictureEntities();
         }
 
         public libraryNaturguiden.Picture[] GetPictures()
         {
-            return _db.Picture
+            return db.Picture
                 .Select(x => new libraryNaturguiden.Picture {
                     Id = x.Id,
                     Url = x.Url,
                     Alt = x.Alt,
                     Date = x.Date,
                     Owner = x.Owner,
+                    Format = x.Format,
                     Categories = x.Category.Select(y => y.Id).ToList()
                 } )
                 .ToArray();
         }
 
-        public libraryNaturguiden.Picture GetPicture(int id)
+        public libraryNaturguiden.Picture GetPicture(Int32 id)
         {
-            return _db.Picture
+            return db.Picture
                 .Where(x => x.Id == id)
                 .Select(x => new libraryNaturguiden.Picture
                 {
@@ -39,6 +40,7 @@ namespace apiNaturguiden.Models
                     Alt = x.Alt,
                     Date = x.Date,
                     Owner = x.Owner,
+                    Format = x.Format,
                     Categories = x.Category.Select(y => y.Id).ToList()
                 })
                 .FirstOrDefault();
@@ -53,32 +55,34 @@ namespace apiNaturguiden.Models
                 Date = newPicture.Date,
                 Owner = newPicture.Owner,
                 Url = newPicture.Url,
-                Category = _db.Category.Where(x => newPicture.Categories.Contains(x.Id)).ToList()
+                Format = newPicture.Format,
+                Category = db.Category.Where(x => newPicture.Categories.Contains(x.Id)).ToList()
             };
-            _db.Picture.Add(picture);
-            _db.SaveChanges();
+            db.Picture.Add(picture);
+            db.SaveChanges();
         }
 
         public void EditPicture(libraryNaturguiden.Picture picture)
         {
-            var dbPicture = _db.Picture.Where(x => x.Id == picture.Id).FirstOrDefault();
+            var dbPicture = db.Picture.Where(x => x.Id == picture.Id).FirstOrDefault();
             dbPicture.Alt = picture.Alt;
             dbPicture.Date = picture.Date;
             dbPicture.Owner = picture.Owner;
             dbPicture.Url = picture.Url;
-            dbPicture.Category = _db.Category.Where(x => picture.Categories.Contains(x.Id)).ToList();
-            _db.SaveChanges();
+            dbPicture.Format = picture.Format;
+            dbPicture.Category = db.Category.Where(x => picture.Categories.Contains(x.Id)).ToList();
+            db.SaveChanges();
         }
 
         public void RemovePicture(int id)
         {
-            _db.Picture.Remove(_db.Picture.Where(x => x.Id == id).FirstOrDefault());
-            _db.SaveChanges();
+            db.Picture.Remove(db.Picture.Where(x => x.Id == id).FirstOrDefault());
+            db.SaveChanges();
         }
 
         public libraryNaturguiden.PictureCategory[] GetCategories()
         {
-            return _db.Category
+            return db.Category
                 .Select(x => new libraryNaturguiden.PictureCategory
                 {
                     Id = x.Id,
@@ -89,7 +93,7 @@ namespace apiNaturguiden.Models
 
         public libraryNaturguiden.PictureCategory GetCategory(int id)
         {
-            return _db.Category
+            return db.Category
                 .Where(x => x.Id == id)
                 .Select(x => new libraryNaturguiden.PictureCategory
                 {
@@ -106,21 +110,21 @@ namespace apiNaturguiden.Models
                 Id = newCategory.Id,
                 Name = newCategory.Name
             };
-            _db.Category.Add(category);
-            _db.SaveChanges();
+            db.Category.Add(category);
+            db.SaveChanges();
         }
 
         public void EditCategory(libraryNaturguiden.PictureCategory category)
         {
-            var dbCategory = _db.Category.Where(x => x.Id == category.Id).FirstOrDefault();
+            var dbCategory = db.Category.Where(x => x.Id == category.Id).FirstOrDefault();
             dbCategory.Name = category.Name;
-            _db.SaveChanges();
+            db.SaveChanges();
         }
 
         public void RemoveCategory(int id)
         {
-            _db.Category.Remove(_db.Category.Where(x => x.Id == id).FirstOrDefault());
-            _db.SaveChanges();
+            db.Category.Remove(db.Category.Where(x => x.Id == id).FirstOrDefault());
+            db.SaveChanges();
         }
     }
 }

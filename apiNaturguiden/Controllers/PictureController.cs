@@ -9,7 +9,7 @@ using System.Web.Http.Cors;
 
 namespace apiNaturguiden.Controllers
 {
-    [EnableCors(origins: "http://localhost:8080", headers:"*", methods: "*")]
+    [EnableCors(origins: "*", headers:"*", methods: "*")]
     public class PictureController : ApiController
     {
         PictureHandler pictureHandler; 
