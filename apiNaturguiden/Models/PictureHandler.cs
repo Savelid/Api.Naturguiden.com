@@ -8,6 +8,7 @@ namespace apiNaturguiden.Models
 {
     public class PictureHandler
     {
+        const string UrlBase = "http://localhost:9946/";
         PictureEntities db;
         public PictureHandler()
         {
@@ -19,7 +20,7 @@ namespace apiNaturguiden.Models
             return db.Picture
                 .Select(x => new libraryNaturguiden.Picture {
                     Id = x.Id,
-                    Url = x.Url,
+                    Url = x.Url.Contains("http://") ? x.Url : UrlBase + x.Url,
                     Alt = x.Alt,
                     Date = x.Date,
                     Owner = x.Owner,
@@ -36,7 +37,7 @@ namespace apiNaturguiden.Models
                 .Select(x => new libraryNaturguiden.Picture
                 {
                     Id = x.Id,
-                    Url = x.Url,
+                    Url = x.Url.Contains("http://") ? x.Url : UrlBase + x.Url,
                     Alt = x.Alt,
                     Date = x.Date,
                     Owner = x.Owner,
@@ -50,14 +51,13 @@ namespace apiNaturguiden.Models
         {
             var picture = new Picture
             {
-                Id = newPicture.Id,
                 Alt = newPicture.Alt,
                 Date = newPicture.Date,
                 Owner = newPicture.Owner,
                 Url = newPicture.Url,
                 Format = newPicture.Format,
-                Category = db.Category.Where(x => newPicture.Categories.Contains(x.Id)).ToList()
-            };
+                Category = newPicture.Categories == null ? null : db.Category.Where(x => newPicture.Categories.Contains(x.Id)).ToList()
+        };
             db.Picture.Add(picture);
             db.SaveChanges();
         }
@@ -70,7 +70,7 @@ namespace apiNaturguiden.Models
             dbPicture.Owner = picture.Owner;
             dbPicture.Url = picture.Url;
             dbPicture.Format = picture.Format;
-            dbPicture.Category = db.Category.Where(x => picture.Categories.Contains(x.Id)).ToList();
+            dbPicture.Category = picture.Categories == null ? null : db.Category.Where(x => picture.Categories.Contains(x.Id)).ToList();
             db.SaveChanges();
         }
 
