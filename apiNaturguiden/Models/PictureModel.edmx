@@ -17,7 +17,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Filename" Type="varchar" MaxLength="100" />
           <Property Name="Url" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="FormatedUrl" Type="varchar" MaxLength="150" />
+          <Property Name="ThumbUrl" Type="varchar" MaxLength="150" />
           <Property Name="Alt" Type="varchar" MaxLength="100" />
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="Owner" Type="varchar" MaxLength="100" />
@@ -44,7 +47,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Picture">
-          <End Role="Picture" Type="Self.Picture" Multiplicity="1" />
+          <End Role="Picture" Type="Self.Picture" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="PictureCategory" Type="Self.PictureCategory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Picture">
@@ -91,6 +96,9 @@
           <Property Name="Owner" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Category" Relationship="Self.PictureCategory" FromRole="Picture" ToRole="Category" />
           <Property Name="Format" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Filename" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FormatedUrl" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ThumbUrl" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="PictureCategory">
           <End Role="Category" Type="Self.Category" Multiplicity="*" />
@@ -121,6 +129,9 @@
           <EntitySetMapping Name="Picture">
             <EntityTypeMapping TypeName="PictureModel.Picture">
               <MappingFragment StoreEntitySet="Picture">
+                <ScalarProperty Name="ThumbUrl" ColumnName="ThumbUrl" />
+                <ScalarProperty Name="FormatedUrl" ColumnName="FormatedUrl" />
+                <ScalarProperty Name="Filename" ColumnName="Filename" />
                 <ScalarProperty Name="Format" ColumnName="Format" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Url" ColumnName="Url" />

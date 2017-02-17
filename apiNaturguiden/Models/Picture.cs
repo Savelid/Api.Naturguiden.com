@@ -26,6 +26,9 @@ namespace apiNaturguiden.Models
         public System.DateTime Date { get; set; }
         public string Owner { get; set; }
         public string Format { get; set; }
+        public string Filename { get; set; }
+        public string FormatedUrl { get; set; }
+        public string ThumbUrl { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Category> Category { get; set; }

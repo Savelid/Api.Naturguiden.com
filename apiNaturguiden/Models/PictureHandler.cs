@@ -8,7 +8,7 @@ namespace apiNaturguiden.Models
 {
     public class PictureHandler
     {
-        const string UrlBase = "http://localhost:9946/";
+        const string UrlBase = "http://admin.naturguiden.com/";
         PictureEntities db;
         public PictureHandler()
         {
@@ -21,12 +21,56 @@ namespace apiNaturguiden.Models
                 .Select(x => new libraryNaturguiden.Picture {
                     Id = x.Id,
                     Url = x.Url.Contains("http://") ? x.Url : UrlBase + x.Url,
+                    FormatedUrl = x.FormatedUrl.Contains("http://") ? x.Url : UrlBase + x.FormatedUrl,
+                    ThumbUrl = x.ThumbUrl.Contains("http://") ? x.Url : UrlBase + x.ThumbUrl,
+                    FileName = x.Filename,
                     Alt = x.Alt,
                     Date = x.Date,
                     Owner = x.Owner,
                     Format = x.Format,
                     Categories = x.Category.Select(y => y.Id).ToList()
                 } )
+                .ToArray();
+        }
+
+        public libraryNaturguiden.Picture[] GetAlbumPictures()
+        {
+            return db.Picture
+                .Where(x => x.Format.ToLower() == "album" && x.FormatedUrl != null && x.ThumbUrl != null)
+                .Select(x => new libraryNaturguiden.Picture
+                {
+                    Id = x.Id,
+                    Url = x.Url.Contains("http://") ? x.Url : UrlBase + x.Url,
+                    FormatedUrl = x.FormatedUrl.Contains("http://") ? x.Url : UrlBase + x.FormatedUrl,
+                    ThumbUrl = x.ThumbUrl.Contains("http://") ? x.Url : UrlBase + x.ThumbUrl,
+                    FileName = x.Filename,
+                    Alt = x.Alt,
+                    Date = x.Date,
+                    Owner = x.Owner,
+                    Format = x.Format,
+                    Categories = x.Category.Select(y => y.Id).ToList()
+                })
+                .ToArray();
+        }
+
+        public libraryNaturguiden.Picture[] GetAlbumPictures(string category)
+        {
+            return db.Picture
+                .Where(x => x.Format.ToLower() == "album" && x.FormatedUrl != null && x.ThumbUrl != null)
+                .Where(x => x.Category.Select(y => y.Name.ToLower()).Contains(category.ToLower()))
+                .Select(x => new libraryNaturguiden.Picture
+                {
+                    Id = x.Id,
+                    Url = x.Url.Contains("http://") ? x.Url : UrlBase + x.Url,
+                    FormatedUrl = x.FormatedUrl.Contains("http://") ? x.Url : UrlBase + x.FormatedUrl,
+                    ThumbUrl = x.ThumbUrl.Contains("http://") ? x.Url : UrlBase + x.ThumbUrl,
+                    FileName = x.Filename,
+                    Alt = x.Alt,
+                    Date = x.Date,
+                    Owner = x.Owner,
+                    Format = x.Format,
+                    Categories = x.Category.Select(y => y.Id).ToList()
+                })
                 .ToArray();
         }
 
@@ -38,6 +82,9 @@ namespace apiNaturguiden.Models
                 {
                     Id = x.Id,
                     Url = x.Url.Contains("http://") ? x.Url : UrlBase + x.Url,
+                    FormatedUrl = x.FormatedUrl.Contains("http://") ? x.Url : UrlBase + x.FormatedUrl,
+                    ThumbUrl = x.ThumbUrl.Contains("http://") ? x.Url : UrlBase + x.ThumbUrl,
+                    FileName = x.Filename,
                     Alt = x.Alt,
                     Date = x.Date,
                     Owner = x.Owner,
@@ -55,6 +102,9 @@ namespace apiNaturguiden.Models
                 Date = newPicture.Date,
                 Owner = newPicture.Owner,
                 Url = newPicture.Url,
+                FormatedUrl = newPicture.FormatedUrl,
+                ThumbUrl = newPicture.ThumbUrl,
+                Filename = newPicture.FileName,
                 Format = newPicture.Format,
                 Category = newPicture.Categories == null ? null : db.Category.Where(x => newPicture.Categories.Contains(x.Id)).ToList()
         };
@@ -69,6 +119,9 @@ namespace apiNaturguiden.Models
             dbPicture.Date = picture.Date;
             dbPicture.Owner = picture.Owner;
             dbPicture.Url = picture.Url;
+            dbPicture.FormatedUrl = picture.FormatedUrl;
+            dbPicture.ThumbUrl = picture.ThumbUrl;
+            dbPicture.Filename = picture.FileName;
             dbPicture.Format = picture.Format;
             dbPicture.Category = picture.Categories == null ? null : db.Category.Where(x => picture.Categories.Contains(x.Id)).ToList();
             db.SaveChanges();

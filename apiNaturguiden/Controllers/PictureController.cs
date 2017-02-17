@@ -34,6 +34,22 @@ namespace apiNaturguiden.Controllers
             return pictureHandler.GetPicture(id);
         }
 
+        // GET: api/Picture/Album
+        [HttpGet]
+        [Route("api/Picture/Album")]
+        public libraryNaturguiden.Picture[] Album()
+        {
+            return pictureHandler.GetAlbumPictures();
+        }
+
+        // GET: api/Picture/Album/Skiing
+        [HttpGet]
+        [Route("api/Picture/Album/{category}")]
+        public libraryNaturguiden.Picture[] Album(string category)
+        {
+            return pictureHandler.GetAlbumPictures(category);
+        }
+
         // POST: api/Picture
         [HttpPost]
         public void Post(libraryNaturguiden.Picture picture)

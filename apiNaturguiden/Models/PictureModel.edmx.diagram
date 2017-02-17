@@ -8,6 +8,7 @@
         <EntityTypeShape EntityType="PictureModel.Category" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="PictureModel.Picture" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="PictureModel.PictureCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="PictureModel.PictureCategory1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
