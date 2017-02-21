@@ -8,7 +8,6 @@ namespace apiNaturguiden.Models
 {
     public class PictureHandler
     {
-        const string UrlBase = "http://admin.naturguiden.com/";
         PictureEntities db;
         public PictureHandler()
         {
@@ -20,9 +19,9 @@ namespace apiNaturguiden.Models
             return db.Picture
                 .Select(x => new libraryNaturguiden.Picture {
                     Id = x.Id,
-                    Url = x.Url.Contains("http://") ? x.Url : UrlBase + x.Url,
-                    FormatedUrl = x.FormatedUrl.Contains("http://") ? x.Url : UrlBase + x.FormatedUrl,
-                    ThumbUrl = x.ThumbUrl.Contains("http://") ? x.Url : UrlBase + x.ThumbUrl,
+                    Url = x.Url,
+                    FormatedUrl = x.FormatedUrl,
+                    ThumbUrl = x.ThumbUrl,
                     FileName = x.Filename,
                     Alt = x.Alt,
                     Date = x.Date,
@@ -40,9 +39,9 @@ namespace apiNaturguiden.Models
                 .Select(x => new libraryNaturguiden.Picture
                 {
                     Id = x.Id,
-                    Url = x.Url.Contains("http://") ? x.Url : UrlBase + x.Url,
-                    FormatedUrl = x.FormatedUrl.Contains("http://") ? x.Url : UrlBase + x.FormatedUrl,
-                    ThumbUrl = x.ThumbUrl.Contains("http://") ? x.Url : UrlBase + x.ThumbUrl,
+                    Url = x.Url,
+                    FormatedUrl = x.FormatedUrl,
+                    ThumbUrl = x.ThumbUrl,
                     FileName = x.Filename,
                     Alt = x.Alt,
                     Date = x.Date,
@@ -61,9 +60,9 @@ namespace apiNaturguiden.Models
                 .Select(x => new libraryNaturguiden.Picture
                 {
                     Id = x.Id,
-                    Url = x.Url.Contains("http://") ? x.Url : UrlBase + x.Url,
-                    FormatedUrl = x.FormatedUrl.Contains("http://") ? x.Url : UrlBase + x.FormatedUrl,
-                    ThumbUrl = x.ThumbUrl.Contains("http://") ? x.Url : UrlBase + x.ThumbUrl,
+                    Url = x.Url,
+                    FormatedUrl = x.FormatedUrl,
+                    ThumbUrl = x.ThumbUrl,
                     FileName = x.Filename,
                     Alt = x.Alt,
                     Date = x.Date,
@@ -81,9 +80,9 @@ namespace apiNaturguiden.Models
                 .Select(x => new libraryNaturguiden.Picture
                 {
                     Id = x.Id,
-                    Url = x.Url.Contains("http://") ? x.Url : UrlBase + x.Url,
-                    FormatedUrl = x.FormatedUrl.Contains("http://") ? x.Url : UrlBase + x.FormatedUrl,
-                    ThumbUrl = x.ThumbUrl.Contains("http://") ? x.Url : UrlBase + x.ThumbUrl,
+                    Url = x.Url,
+                    FormatedUrl = x.FormatedUrl,
+                    ThumbUrl = x.ThumbUrl,
                     FileName = x.Filename,
                     Alt = x.Alt,
                     Date = x.Date,
@@ -127,6 +126,7 @@ namespace apiNaturguiden.Models
             db.SaveChanges();
         }
 
+        //TODO: clean up deleted pictures
         public void RemovePicture(int id)
         {
             db.Picture.Remove(db.Picture.Where(x => x.Id == id).FirstOrDefault());

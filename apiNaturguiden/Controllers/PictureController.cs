@@ -22,32 +22,32 @@ namespace apiNaturguiden.Controllers
 
         // GET: api/Picture
         [HttpGet]
-        public libraryNaturguiden.Picture[] Get()
+        public libraryNaturguiden.PictureContainer Get()
         {
-            return pictureHandler.GetPictures();
+            return new libraryNaturguiden.PictureContainer(pictureHandler.GetPictures());
         }
 
         // GET: api/Picture/5
         [HttpGet]
-        public libraryNaturguiden.Picture Get(int id)
+        public libraryNaturguiden.PictureContainer Get(int id)
         {
-            return pictureHandler.GetPicture(id);
+            return new libraryNaturguiden.PictureContainer(pictureHandler.GetPicture(id));
         }
 
         // GET: api/Picture/Album
         [HttpGet]
         [Route("api/Picture/Album")]
-        public libraryNaturguiden.Picture[] Album()
+        public libraryNaturguiden.PictureContainer Album()
         {
-            return pictureHandler.GetAlbumPictures();
+            return new libraryNaturguiden.PictureContainer(pictureHandler.GetAlbumPictures());
         }
 
         // GET: api/Picture/Album/Skiing
         [HttpGet]
         [Route("api/Picture/Album/{category}")]
-        public libraryNaturguiden.Picture[] Album(string category)
+        public libraryNaturguiden.PictureContainer Album(string category)
         {
-            return pictureHandler.GetAlbumPictures(category);
+            return new libraryNaturguiden.PictureContainer(pictureHandler.GetAlbumPictures(category));
         }
 
         // POST: api/Picture
