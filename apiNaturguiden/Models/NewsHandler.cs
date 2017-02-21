@@ -71,7 +71,7 @@ namespace apiNaturguiden.Models
                 Creator = news.Creator,
                 Heading = news.Heading,
                 Text = news.Text,
-                Picture = news?.Picture?.Id,
+                Picture = news.PictureId,
                 LinkUrl = news.LinkUrl,
                 LinkText = news.LinkText,
                 Position = news.Position
@@ -90,7 +90,7 @@ namespace apiNaturguiden.Models
                 newsToAdd.Creator = news.Creator;
                 newsToAdd.Heading = news.Heading;
                 newsToAdd.Text = news.Text;
-                newsToAdd.Picture = news?.Picture?.Id;
+                newsToAdd.Picture = news.PictureId;
                 newsToAdd.LinkUrl = news.LinkUrl;
                 newsToAdd.LinkText = news.LinkText;
                 newsToAdd.Position = news.Position;
