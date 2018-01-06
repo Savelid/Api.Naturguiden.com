@@ -36,7 +36,14 @@ namespace apiNaturguiden.Controllers
         [HttpPost]
         public void Post(libraryNaturguiden.News news)
         {
-            newsHandler.AddNews(news);
+            try
+            {
+                newsHandler.AddNews(news);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         // PUT: api/Picture

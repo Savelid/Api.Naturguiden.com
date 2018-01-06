@@ -96,6 +96,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Models\InquiryModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InquiryModel.edmx</DependentUpon>
+      <LastGenOutput>InquiryModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\InquiryModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InquiryModel.edmx</DependentUpon>
+      <LastGenOutput>InquiryModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Models\NewsModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>NewsModel.edmx</DependentUpon>
@@ -116,10 +126,13 @@
       <DependentUpon>PictureModel.edmx</DependentUpon>
       <LastGenOutput>PictureModel.cs</LastGenOutput>
     </Content>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\InquiryController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\PictureCategoryController.cs" />
     <Compile Include="Controllers\PictureController.cs" />
@@ -128,6 +141,25 @@
     </Compile>
     <Compile Include="Models\Category.cs">
       <DependentUpon>PictureModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Inquiry.cs">
+      <DependentUpon>InquiryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InquiryHandler.cs" />
+    <Compile Include="Models\InquiryModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InquiryModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InquiryModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InquiryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InquiryModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InquiryModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\News.cs">
       <DependentUpon>NewsModel.tt</DependentUpon>
@@ -188,6 +220,13 @@
     </EntityDeploy>
     <Content Include="Models\NewsModel.edmx.diagram">
       <DependentUpon>NewsModel.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\InquiryModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>InquiryModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\InquiryModel.edmx.diagram">
+      <DependentUpon>InquiryModel.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\apiNaturguiden.pubxml" />
     <None Include="Web.Debug.config">
