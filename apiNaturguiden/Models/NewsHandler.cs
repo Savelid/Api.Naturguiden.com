@@ -66,7 +66,6 @@ namespace apiNaturguiden.Models
         {
             var newsToAdd = new News
             {
-                Id = 10001,
                 Date = DateTime.Now,
                 Creator = news.Creator,
                 Heading = news.Heading,

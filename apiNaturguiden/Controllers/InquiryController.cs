@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
 namespace apiNaturguiden.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class InquiryController : ApiController
     {
         InquiryHandler inquiryHandler;
@@ -17,48 +17,47 @@ namespace apiNaturguiden.Controllers
         {
             inquiryHandler = new InquiryHandler();
         }
-        // GET: api/Inquiry
-        [HttpGet]
-        public libraryNaturguiden.Inquiry[] Get()
-        {
-            return inquiryHandler.GetInquiries();
-        }
+        //// GET: api/Inquiry
+        //[HttpGet]
+        //public libraryNaturguiden.Inquiry[] Get()
+        //{
+        //    return inquiryHandler.GetInquiries();
+        //}
 
-        // GET: api/Inquiry/5
-        [HttpGet]
-        public libraryNaturguiden.Inquiry Get(int id)
-        {
-            return inquiryHandler.GetInquiry(id);
-        }
+        //// GET: api/Inquiry/5
+        //[HttpGet]
+        //public libraryNaturguiden.Inquiry Get(int id)
+        //{
+        //    return inquiryHandler.GetInquiry(id);
+        //}
 
         // POST: api/Inquiry
+        [EnableCors(origins: "http://www.naturguiden.com", headers: "*", methods: "*")]
         [HttpPost]
-        public async void Post(libraryNaturguiden.Inquiry formData)
+        public async Task<HttpResponseMessage> Post(libraryNaturguiden.Inquiry formData)
         {
             if(formData != null && ModelState.IsValid)
             {
-                int status = await inquiryHandler.SaveInquiry(formData);
-                if (status == 1)
-                {
-                    InquiryHandler.SendConfirmMail(formData);
-                }
+                InquiryHandler.SendConfirmMail(formData);
+                await inquiryHandler.SaveInquiry(formData);
             }
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
-        // PUT: api/Inquiry/5
-        [HttpPut]
-        public async void Put(libraryNaturguiden.Inquiry formData)
-        {
-            if (formData != null)
-            {
-                await inquiryHandler.UpdateInquiry(formData);
-            }
-        }
-        [HttpDelete]
-        // DELETE: api/Inquiry/5
-        public async void Delete(int id)
-        {
-            await inquiryHandler.DeleteInquiry(id);
-        }
+        //// PUT: api/Inquiry/5
+        //[HttpPut]
+        //public async void Put(libraryNaturguiden.Inquiry formData)
+        //{
+        //    if (formData != null)
+        //    {
+        //        await inquiryHandler.UpdateInquiry(formData);
+        //    }
+        //}
+        //[HttpDelete]
+        //// DELETE: api/Inquiry/5
+        //public async void Delete(int id)
+        //{
+        //    await inquiryHandler.DeleteInquiry(id);
+        //}
     }
 }

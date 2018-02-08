@@ -10,7 +10,6 @@ using System.Web.Http.Cors;
 
 namespace apiNaturguiden.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class NewsController : ApiController
     {
         NewsHandler newsHandler;
@@ -18,42 +17,41 @@ namespace apiNaturguiden.Controllers
         {
             newsHandler = new NewsHandler();
         }
-        // GET: api/Picture
+        // GET: api/News
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         [HttpGet]
         public libraryNaturguiden.News[] Get()
         {
-            return newsHandler.GetNews();
+            var news = newsHandler.GetNews();
+            return news.Where(x => x.Position > 0).ToArray();
         }
 
-        // GET: api/Picture/5
+        // GET: api/News/5
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         [HttpGet]
         public libraryNaturguiden.News Get(int id)
         {
             return newsHandler.GetNews(id);
         }
 
-        // POST: api/Picture
+        [EnableCors(origins: "http://admin.naturguiden.com", headers: "*", methods: "*")]
+        // POST: api/News
         [HttpPost]
         public void Post(libraryNaturguiden.News news)
         {
-            try
-            {
-                newsHandler.AddNews(news);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            newsHandler.AddNews(news);
         }
 
-        // PUT: api/Picture
+        [EnableCors(origins: "http://admin.naturguiden.com", headers: "*", methods: "*")]
+        // PUT: api/News
         [HttpPut]
         public void Put(libraryNaturguiden.News news)
         {
             newsHandler.EditNews(news);
         }
 
-        // DELETE: api/Picture/5
+        [EnableCors(origins: "http://admin.naturguiden.com", headers: "*", methods: "*")]
+        // DELETE: api/News/5
         [HttpDelete]
         public void Delete(int id)
         {

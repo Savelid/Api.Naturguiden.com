@@ -11,7 +11,7 @@ using System.Web.Http.Cors;
 
 namespace apiNaturguiden.Controllers
 {
-    [EnableCors(origins: "*", headers:"*", methods: "*")]
+    [EnableCors(origins: "http://admin.naturguiden.com", headers: "*", methods: "*")]
     public class PictureController : ApiController
     {
         PictureHandler pictureHandler; 
