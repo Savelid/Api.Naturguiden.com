@@ -22,8 +22,7 @@ namespace apiNaturguiden.Controllers
         [HttpGet]
         public libraryNaturguiden.News[] Get()
         {
-            var news = newsHandler.GetNews();
-            return news.Where(x => x.Position > 0).ToArray();
+            return newsHandler.GetNews();
         }
 
         // GET: api/News/5

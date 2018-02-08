@@ -70,7 +70,7 @@ namespace apiNaturguiden.Models
                 Creator = news.Creator,
                 Heading = news.Heading,
                 Text = news.Text,
-                Picture = news.PictureId,
+                //Picture = news.PictureId,
                 LinkUrl = news.LinkUrl,
                 LinkText = news.LinkText,
                 Position = news.Position

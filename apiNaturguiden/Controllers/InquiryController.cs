@@ -32,7 +32,7 @@ namespace apiNaturguiden.Controllers
         //}
 
         // POST: api/Inquiry
-        [EnableCors(origins: "http://www.naturguiden.com", headers: "*", methods: "*")]
+        [EnableCors(origins: "http://naturguiden.com, http://www.naturguiden.com", headers: "*", methods: "*")]
         [HttpPost]
         public async Task<HttpResponseMessage> Post(libraryNaturguiden.Inquiry formData)
         {
